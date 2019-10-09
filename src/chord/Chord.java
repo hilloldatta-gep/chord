@@ -156,9 +156,18 @@ public class Chord implements ChordInterface {
             } catch (NotBoundException ex) {
                 Logger.getLogger(Chord.class.getName()).log(Level.SEVERE, null, ex);
             }
+	    /* In case lazy-update fails for updateOthers */
+      	    try {
             if(stub!=null){
                 stub.updateFingerTable(this.node.getNodeinfo(),i);
-            }   
+            }  
+	    }
+	    catch(Exception ex){
+		 stub.updateFingerTable(null,0);
+		 Logger.getLogger(Chord.class.getName()).log(Level.SEVERE, null, ex);    
+	 }
+			
+	    
         }
     }
 
